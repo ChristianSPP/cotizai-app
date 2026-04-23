@@ -7,7 +7,7 @@ Generador de cotizaciones profesionales en PDF — funciona como app instalable 
 ## 📱 Instalar en Android
 
 1. Abre Chrome en tu celular
-2. Entra a `https://TU-USUARIO.github.io/cotizai-app`
+2. Entra a `https://christianspp.github.io/cotizai-app`
 3. Aparece un banner azul → toca **"Instalar"**
 4. ¡Listo! Queda en tu pantalla de inicio como app
 
