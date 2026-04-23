@@ -2,29 +2,7 @@
 
 Generador de cotizaciones profesionales en PDF — funciona como app instalable en Android e iOS.
 
-**Demo:** https://ChristianSPP.github.io/cotizai-app
-
----
-
-## 🚀 Cómo subir a GitHub Pages
-
-### 1. Crea el repositorio
-- Ve a github.com → New repository
-- Nombre: `cotizai-app`
-- Visibilidad: **Public**
-- Clic en Create repository
-
-### 2. Sube el archivo
-- Clic en "uploading an existing file"
-- Arrastra `index.html`
-- Clic en Commit changes
-
-### 3. Activa GitHub Pages
-- Settings → Pages
-- Branch: **main** → Save
-- En 1-2 minutos estará en línea ✅
-
----
+**Demo:** https://christianspp.github.io/cotizai-app
 
 ## 📱 Instalar en Android
 
