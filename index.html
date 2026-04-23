@@ -1081,6 +1081,1124 @@ function CotizAI() {
                     <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:18,marginBottom:6}}>Aún sin PDF</div>
                     <div style={{fontSize:12,color:"#333"}}>Completa los datos y genera tu primera cotización</div>
                   </div>
+                  <Btn onClick={()=>setTab("empresa")}>Comenzar →</Btn><!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CotizAI</title>
+<meta name="description" content="Genera cotizaciones profesionales en PDF en 2 minutos">
+<meta name="theme-color" content="#0055FF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CotizAI">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230055FF'/%3E%3Crect x='78' y='0' width='22' height='100' fill='%23FF3D00'/%3E%3Ctext x='8' y='72' font-family='Arial Black' font-weight='900' font-size='68' fill='white'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230055FF'/%3E%3Crect x='78' y='0' width='22' height='100' fill='%23FF3D00'/%3E%3Ctext x='8' y='72' font-family='Arial Black' font-weight='900' font-size='68' fill='white'%3EC%3C/text%3E%3C/svg%3E">
+<script>
+(function(){
+  var m={name:"CotizAI",short_name:"CotizAI",start_url:"./",display:"standalone",background_color:"#080808",theme_color:"#0055FF",icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230055FF'/%3E%3Crect x='78' y='0' width='22' height='100' fill='%23FF3D00'/%3E%3Ctext x='8' y='72' font-family='Arial Black' font-weight='900' font-size='68' fill='white'%3EC%3C/text%3E%3C/svg%3E",sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}]};
+  var b=new Blob([JSON.stringify(m)],{type:"application/json"});
+  var l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(b);
+  document.head.appendChild(l);
+  if("serviceWorker"in navigator){var sw="const C='cai-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js','https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js','https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'])).then(()=>self.skipWaiting()))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"application/javascript"})),{scope:"./"});}
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body, #root { height: 100%; }
+  body { font-family: 'DM Sans', sans-serif; background: #0a0a0a; color: #e8e4dc; overflow: hidden; }
+  input, select, textarea { color-scheme: dark; font-family: 'DM Sans', sans-serif; }
+  input::placeholder, textarea::placeholder { color: #444; }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes slideIn { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes toastIn { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+  /* ══ BOTTOM NAV (solo móvil) ══ */
+  .bottom-nav {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 58px;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: #060606;
+    border-top: 1px solid #1a1a1a;
+    z-index: 200;
+  }
+  .bottom-nav button {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3px;
+    border: none; background: transparent; cursor: pointer;
+    color: #333; transition: color .15s; padding: 4px 0;
+    font-family: inherit;
+  }
+  .bottom-nav button.active { color: #0055FF; }
+  .bottom-nav button span { font-size: 9px; font-weight: 600; }
+  .bnav-dot {
+    position: absolute; top: -2px; right: -2px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #059669; border: 2px solid #060606;
+  }
+
+  /* ══ RESPONSIVE ══ */
+
+  /* MÓVIL: < 768px */
+  @media (max-width: 767px) {
+    body { padding-top: env(safe-area-inset-top); }
+    input, select, textarea { font-size: 16px !important; } /* evita zoom */
+
+    /* Mostrar bottom nav */
+    .bottom-nav { display: flex; }
+
+    /* Ocultar sidebar desktop */
+    .desktop-sidebar { display: none !important; }
+
+    /* Ocultar barra IA del header y subtítulo */
+    .desktop-ai-bar { display: none !important; }
+    .desktop-subtitle { display: none !important; }
+
+    /* Mostrar botón IA móvil */
+    .mobile-ai-btn { display: flex !important; }
+
+    /* Scroll con espacio para bottom nav */
+    .main-scroll { padding-bottom: 80px !important; }
+
+    /* Preview más pequeño en móvil */
+    .preview-wrap { padding: 8px !important; }
+    .preview-inner {
+      transform: scale(0.46) !important;
+      transform-origin: top left !important;
+      width: 217% !important;
+    }
+
+    /* Grids de 2 col → 1 col en pantallas muy pequeñas */
+    @media (max-width: 400px) {
+      .grid-2 { grid-template-columns: 1fr !important; }
+    }
+  }
+
+  /* DESKTOP: >= 768px */
+  @media (min-width: 768px) {
+    /* Ocultar botón IA móvil */
+    .mobile-ai-btn { display: none !important; }
+
+    /* Sidebar visible */
+    .desktop-sidebar {
+      width: 200px; flex-shrink: 0;
+      background: #060606; border-right: 1px solid #161616;
+      display: flex !important; flex-direction: column; padding: 16px 0;
+    }
+    .desktop-sidebar button {
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 14px; margin: 2px 8px;
+      background: transparent; border: 1px solid transparent;
+      border-radius: 9px; cursor: pointer; color: #444;
+      font-family: inherit; font-size: 12px; text-align: left;
+      transition: all .15s; width: calc(100% - 16px);
+    }
+    .desktop-sidebar button:hover { background: #111; color: #777; }
+    .desktop-sidebar button.active {
+      background: #0055FF14; border-color: #0055FF28; color: #4488FF; font-weight: 600;
+    }
+    .sidebar-totals { margin-top: auto; padding: 14px; border-top: 1px solid #161616; }
+
+    /* Barra IA en header visible */
+    .desktop-ai-bar { display: flex !important; }
+    .desktop-subtitle { display: block !important; }
+
+    /* Preview más grande en desktop */
+    .preview-inner {
+      transform: scale(0.62) !important;
+      transform-origin: top left !important;
+      width: 161% !important;
+    }
+
+    /* Contenido con maxWidth */
+    .content-wrap { max-width: 660px; }
+    .content-wrap-wide { max-width: 800px; }
+
+    /* Inputs desktop tamaño normal */
+    input, select, textarea { font-size: 13px !important; }
+  }
+
+  /* Install banner PWA */
+  #pwa-banner {
+    position: fixed; bottom: 70px; left: 10px; right: 10px;
+    background: linear-gradient(135deg,#0044ee,#0055FF);
+    color: white; border-radius: 14px; padding: 13px 14px;
+    display: flex; align-items: center; gap: 10px; z-index: 500;
+    box-shadow: 0 6px 24px rgba(0,85,255,.35);
+    animation: toastIn .4s ease; border: 1px solid rgba(255,255,255,.12);
+  }
+  #pwa-banner.hidden { display: none !important; }
+  @media (min-width: 768px) {
+    #pwa-banner { bottom: auto; top: 64px; left: auto; right: 16px; width: 300px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- PWA Install Banner -->
+<div id="pwa-banner" class="hidden">
+  <div style="font-size:26px;flex-shrink:0">📲</div>
+  <div style="flex:1"><div style="font-weight:700;font-size:13px;margin-bottom:2px">Instalar CotizAI</div><div style="font-size:11px;opacity:.8">Úsala sin internet, como app real</div></div>
+  <button id="pwa-ok" style="padding:8px 12px;background:white;color:#0055FF;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;flex-shrink:0">Instalar</button>
+  <button id="pwa-x" style="background:transparent;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;padding:2px 6px;flex-shrink:0">✕</button>
+</div>
+<script>
+var _dp=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();_dp=e;if(!localStorage.getItem('cai-no-banner'))setTimeout(function(){document.getElementById('pwa-banner').classList.remove('hidden');},4000);});
+document.getElementById('pwa-ok').onclick=function(){if(!_dp)return;_dp.prompt();_dp.userChoice.then(function(r){if(r.outcome==='accepted')document.getElementById('pwa-banner').classList.add('hidden');});};
+document.getElementById('pwa-x').onclick=function(){document.getElementById('pwa-banner').classList.add('hidden');localStorage.setItem('cai-no-banner','1');};
+window.addEventListener('appinstalled',function(){document.getElementById('pwa-banner').classList.add('hidden');});
+</script>
+
+<script type="text/babel">
+const { useState, useRef, useCallback, useEffect } = React;
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+const fmt = n => "$" + Math.round(n).toLocaleString("es-CL");
+const hexToRgb = hex => ({ r: parseInt(hex.slice(1,3),16), g: parseInt(hex.slice(3,5),16), b: parseInt(hex.slice(5,7),16) });
+const today = () => new Date().toLocaleDateString("es-CL");
+const uid = () => Math.random().toString(36).slice(2,8);
+
+// Palettes removed - using direct color pickers only
+const PALETTES = [
+  { primary:"#0055FF", accent:"#FF3D00", name:"Azul & Rojo" },
+  { primary:"#1a1a2e", accent:"#E94560", name:"Dark & Carmesí" },
+  { primary:"#00695C", accent:"#FFB300", name:"Bosque & Dorado" },
+  { primary:"#1565C0", accent:"#00ACC1", name:"Océano & Celeste" },
+  { primary:"#4A148C", accent:"#FF6F00", name:"Púrpura & Naranja" },
+  { primary:"#212121", accent:"#00E5FF", name:"Carbón & Neón" },
+];
+
+// ─── HTML PDF PREVIEW COMPONENT ──────────────────────────────────────────────
+const PDFPreview = ({ d }) => {
+  if(!d) return null;
+  const { emp, cli, items, cfg, unicos, mensuales, totalU, totalM, netoU, netoM, ivaU, ivaM, fecha } = d;
+  const cp = cfg.colorP || "#0055FF";
+  const ca = cfg.colorA || "#FF3D00";
+
+  return (
+    <div style={{background:"white",maxWidth:794,margin:"0 auto",fontFamily:"Arial,sans-serif",color:"#111",boxShadow:"0 4px 40px rgba(0,0,0,0.2)",minHeight:1100,display:"flex",flexDirection:"column"}}>
+
+      {/* ── HEADER ── */}
+      <div style={{backgroundColor:cp,padding:"28px 60px 28px 24px",display:"flex",justifyContent:"space-between",alignItems:"flex-start",position:"relative",minHeight:90}}>
+        {/* accent strip */}
+        <div style={{position:"absolute",top:0,right:0,bottom:0,width:40,backgroundColor:ca}}/>
+        {/* logo or name */}
+        <div style={{flex:1,zIndex:1}}>
+          {emp.logo
+            ? <img src={emp.logo} alt="logo" style={{maxHeight:90,maxWidth:260,objectFit:"contain",display:"block"}}/>
+            : <div style={{color:"white",fontWeight:700,fontSize:22,letterSpacing:"-0.3px"}}>{emp.nombre}</div>
+          }
+          {emp.web && !emp.logo && <div style={{color:"rgba(255,255,255,0.7)",fontSize:11,marginTop:4}}>{emp.web}</div>}
+        </div>
+        {/* title block */}
+        <div style={{textAlign:"right",zIndex:1,paddingRight:8}}>
+          <div style={{color:"white",fontWeight:800,fontSize:28,letterSpacing:"2px",marginBottom:6}}>COTIZACIÓN</div>
+          <div style={{color:"rgba(255,255,255,0.85)",fontSize:11,lineHeight:1.8}}>
+            N° {cfg.num}<br/>Fecha: {fecha}<br/>Vigencia: {cfg.validez} días
+          </div>
+        </div>
+      </div>
+
+      {/* ── BODY ── */}
+      <div style={{padding:"28px 28px 24px",flex:1}}>
+
+        {/* INFO COLUMNS */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:24,marginBottom:24,paddingBottom:20,borderBottom:`2.5px solid ${cp}`}}>
+          <div>
+            <div style={{fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"1px",color:cp,marginBottom:8}}>Proveedor</div>
+            <div style={{fontWeight:700,fontSize:14,color:"#0a0a0a",marginBottom:5}}>{emp.nombre}</div>
+            {emp.rut     && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>RUT: {emp.rut}</div>}
+            {emp.tel     && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>{emp.tel}</div>}
+            {emp.email   && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>{emp.email}</div>}
+            {emp.dir     && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>{emp.dir}</div>}
+          </div>
+          <div>
+            <div style={{fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"1px",color:cp,marginBottom:8}}>Cliente</div>
+            <div style={{fontWeight:700,fontSize:14,color:"#0a0a0a",marginBottom:5}}>{cli.nombre}</div>
+            {cli.rut      && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>RUT: {cli.rut}</div>}
+            {cli.tel      && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>{cli.tel}</div>}
+            {cli.email    && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>{cli.email}</div>}
+            {cli.atencion && <div style={{fontSize:11,color:"#444",lineHeight:1.7}}>Attn: {cli.atencion}</div>}
+          </div>
+        </div>
+
+        {/* TABLE HEADER */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 100px 130px",backgroundColor:cp,borderRadius:"6px 6px 0 0",padding:"9px 14px",marginBottom:0}}>
+          <div style={{color:"white",fontSize:9.5,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.6px"}}>Descripción</div>
+          <div style={{color:"white",fontSize:9.5,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.6px"}}>Tipo</div>
+          <div style={{color:"white",fontSize:9.5,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.6px",textAlign:"right"}}>Precio</div>
+        </div>
+
+        {/* TABLE ROWS */}
+        <div style={{border:`1px solid #e8e8f0`,borderTop:"none",borderRadius:"0 0 6px 6px",overflow:"hidden",marginBottom:20}}>
+          {items.map((item,i)=>{
+            const men = item.tipo==="mensual";
+            return (
+              <div key={item.id} style={{display:"grid",gridTemplateColumns:"1fr 100px 130px",padding:"10px 14px",backgroundColor:i%2===0?"#f8f8fc":"#ffffff",borderBottom:i<items.length-1?"1px solid #ebebf4":"none",alignItems:"center"}}>
+                <div style={{fontSize:12,color:"#111",fontWeight:500}}>{item.desc||"Servicio"}</div>
+                <div>
+                  <span style={{display:"inline-block",padding:"3px 11px",borderRadius:20,backgroundColor:men?ca:cp,color:"white",fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.4px"}}>
+                    {men?"Mensual":"Único"}
+                  </span>
+                </div>
+                <div style={{fontSize:12,color:"#111",fontWeight:600,textAlign:"right"}}>
+                  {fmt(parseFloat(item.precio)||0)}
+                  {men && <span style={{fontSize:10,fontWeight:400,color:"#555"}}>/mes</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* TOTALS */}
+        <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:0,marginBottom:24}}>
+          {unicos.length>0 && (
+            <div style={{textAlign:"right",backgroundColor:"#f4f6ff",borderRadius:8,padding:"14px 18px",marginBottom:mensuales.length?12:0,minWidth:280}}>
+              <div style={{fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.7px",color:cp,marginBottom:8}}>▸ Pagos Únicos</div>
+              {cfg.iva && <>
+                <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#555",marginBottom:3,gap:40}}><span>Subtotal neto</span><span style={{fontWeight:600}}>{fmt(netoU)}</span></div>
+                <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#555",marginBottom:8,gap:40}}><span>IVA 19%</span><span style={{fontWeight:600}}>{fmt(ivaU)}</span></div>
+              </>}
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:800,color:cp,gap:40,borderTop:cfg.iva?"1px solid #dde":"none",paddingTop:cfg.iva?8:0}}>
+                <span>TOTAL ÚNICO</span><span>{fmt(totalU)}</span>
+              </div>
+            </div>
+          )}
+          {mensuales.length>0 && (
+            <div style={{textAlign:"right",backgroundColor:"#fff4f0",borderRadius:8,padding:"14px 18px",minWidth:280}}>
+              <div style={{fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.7px",color:ca,marginBottom:8}}>▸ Pagos Mensuales</div>
+              {cfg.iva && <>
+                <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#555",marginBottom:3,gap:40}}><span>Subtotal neto</span><span style={{fontWeight:600}}>{fmt(netoM)}</span></div>
+                <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#555",marginBottom:8,gap:40}}><span>IVA 19%</span><span style={{fontWeight:600}}>{fmt(ivaM)}</span></div>
+              </>}
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:800,color:ca,gap:40,borderTop:cfg.iva?"1px solid #fdd":"none",paddingTop:cfg.iva?8:0}}>
+                <span>TOTAL MENSUAL</span>
+                <span>{fmt(totalM)}<span style={{fontSize:11,fontWeight:400}}>/mes</span></span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* NOTES */}
+        {cfg.notas && cfg.notas.trim() && (
+          <div style={{backgroundColor:"#f7f8fb",borderRadius:8,padding:"14px 18px",marginBottom:10,borderLeft:`3px solid ${cp}`}}>
+            <div style={{fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.7px",color:cp,marginBottom:6}}>Condiciones</div>
+            <div style={{fontSize:11,color:"#333",lineHeight:1.8}}>{cfg.notas}</div>
+          </div>
+        )}
+
+        {/* DISCLAIMER */}
+        {cfg.disclaimer && cfg.disc && cfg.disc.trim() && (
+          <div style={{backgroundColor:"#fffbea",border:"1px solid #e8c840",borderRadius:8,padding:"14px 18px"}}>
+            <div style={{fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.7px",color:"#7a5500",marginBottom:6}}>⚠ Aviso Legal</div>
+            <div style={{fontSize:11,color:"#5a3c00",lineHeight:1.8}}>{cfg.disc}</div>
+          </div>
+        )}
+      </div>
+
+      {/* ── FOOTER ── */}
+      <div style={{backgroundColor:cp,padding:"10px 60px 10px 24px",display:"flex",justifyContent:"space-between",alignItems:"center",position:"relative",marginTop:"auto"}}>
+        <div style={{position:"absolute",top:0,right:0,bottom:0,width:40,backgroundColor:ca}}/>
+        <div style={{color:"white",fontSize:9.5,zIndex:1}}>{[emp.email,emp.tel,emp.web].filter(Boolean).join("  ·  ")||emp.nombre}</div>
+        <div style={{color:"rgba(255,255,255,0.85)",fontSize:9.5,zIndex:1}}>Cotización N° {cfg.num}  ·  {fecha}</div>
+      </div>
+    </div>
+  );
+};
+
+// ─── ICONS ────────────────────────────────────────────────────────────────────
+const ICON_PATHS = {
+  building: "M3 21h18M5 21V7l8-4 8 4v14M9 21v-4h6v4M9 10h1M14 10h1M9 14h1M14 14h1",
+  user: "M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 3a4 4 0 100 8 4 4 0 000-8z",
+  list: "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",
+  settings: "M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z",
+  eye: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 100 6 3 3 0 000-6z",
+  download: "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4 M7 10l5 5 5-5 M12 15V3",
+  sparkle: "M12 2l2.4 6.8L22 10l-7.6 2.8L12 22l-2.4-9.2L2 10l7.6-2.2z",
+  plus: "M12 5v14M5 12h14",
+  trash: "M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6",
+  check: "M20 6L9 17l-5-5",
+  arrow: "M5 12h14M12 5l7 7-7 7",
+  image: "M21 15l-5-5L5 21 M21 19a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2z M8.5 8.5a2 2 0 100-4 2 2 0 000 4z",
+  palette: "M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.04 10 9c0 2.76-2.24 5-5 5h-1.77c-.28 0-.5.22-.5.5 0 .13.05.26.13.36.41.48.64 1.1.64 1.64 0 1.38-1.12 2.5-2.5 2.5z M8.5 13a1.5 1.5 0 100-3 1.5 1.5 0 000 3z M15.5 13a1.5 1.5 0 100-3 1.5 1.5 0 000 3z M11 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3z",
+  doc: "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6M16 13H8M16 17H8M10 9H8",
+  alert: "M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z M12 9v4M12 17h.01",
+};
+
+const Ico = ({ n, s = 15, c = "currentColor" }) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    {ICON_PATHS[n]?.split(" M ").map((part, i) => <path key={i} d={i===0 ? part : "M "+part}/>)}
+  </svg>
+);
+
+// ─── ATOMS ────────────────────────────────────────────────────────────────────
+const Inp = ({ label, ...p }) => (
+  <div style={{display:"flex",flexDirection:"column",gap:5}}>
+    {label && <div style={{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.7px",color:"#3d3d3d"}}>{label}</div>}
+    <input {...p} style={{background:"#151515",border:"1.5px solid #222",borderRadius:10,padding:"9px 13px",color:"#e8e4dc",fontSize:13,outline:"none",width:"100%",...p.style}}
+      onFocus={e=>{e.target.style.borderColor="#0055FF";e.target.style.background="#151520";}}
+      onBlur={e=>{e.target.style.borderColor="#222";e.target.style.background="#151515";}}/>
+  </div>
+);
+
+const Sel = ({ label, children, ...p }) => (
+  <div style={{display:"flex",flexDirection:"column",gap:5}}>
+    {label && <div style={{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.7px",color:"#3d3d3d"}}>{label}</div>}
+    <select {...p} style={{background:"#151515",border:"1.5px solid #222",borderRadius:10,padding:"9px 13px",color:"#e8e4dc",fontSize:13,outline:"none",width:"100%",...p.style}}>{children}</select>
+  </div>
+);
+
+const Txta = ({ label, ...p }) => (
+  <div style={{display:"flex",flexDirection:"column",gap:5}}>
+    {label && <div style={{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.7px",color:"#3d3d3d"}}>{label}</div>}
+    <textarea {...p} style={{background:"#151515",border:"1.5px solid #222",borderRadius:10,padding:"9px 13px",color:"#e8e4dc",fontSize:13,outline:"none",width:"100%",resize:"vertical",minHeight:75,...p.style}}
+      onFocus={e=>{e.target.style.borderColor="#0055FF";}}
+      onBlur={e=>{e.target.style.borderColor="#222";}}/>
+  </div>
+);
+
+const Toggle = ({ label, sub, checked, onChange }) => (
+  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,padding:"11px 0",borderBottom:"1px solid #181818",cursor:"pointer"}} onClick={onChange}>
+    <div>
+      <div style={{fontSize:13,fontWeight:500,color:"#d4d0c8"}}>{label}</div>
+      {sub && <div style={{fontSize:11,color:"#444",marginTop:2}}>{sub}</div>}
+    </div>
+    <div style={{width:44,height:24,borderRadius:12,background:checked?"#0055FF":"#252525",position:"relative",transition:"background 0.2s",flexShrink:0}}>
+      <div style={{position:"absolute",top:3,left:checked?23:3,width:18,height:18,borderRadius:"50%",background:"white",transition:"left 0.2s",boxShadow:"0 1px 4px rgba(0,0,0,0.4)"}}/>
+    </div>
+  </div>
+);
+
+const Card = ({ icon, title, badge, action, children }) => (
+  <div style={{background:"#0e0e0e",border:"1.5px solid #191919",borderRadius:16,overflow:"hidden",marginBottom:12}}>
+    <div style={{padding:"12px 18px",borderBottom:"1px solid #181818",display:"flex",alignItems:"center",gap:10,background:"#0c0c0c"}}>
+      <div style={{width:28,height:28,borderRadius:8,background:"#161616",border:"1px solid #222",display:"flex",alignItems:"center",justifyContent:"center",color:"#0055FF",flexShrink:0}}>
+        <Ico n={icon} s={13}/>
+      </div>
+      <span style={{fontFamily:"'Syne',sans-serif",fontWeight:700,fontSize:12.5,color:"#d4d0c8"}}>{title}</span>
+      {badge && <span style={{marginLeft:"auto",fontSize:10,background:"#0055FF18",color:"#4488FF",border:"1px solid #0055FF30",borderRadius:20,padding:"2px 10px",fontWeight:700,flexShrink:0}}>{badge}</span>}
+      {action && <div style={{marginLeft:badge?"8px":"auto"}}>{action}</div>}
+    </div>
+    <div style={{padding:18}}>{children}</div>
+  </div>
+);
+
+const Btn = ({ children, variant="primary", onClick, disabled, style={}, ...p }) => {
+  const styles = {
+    primary: {background:"#0055FF",color:"white",border:"none"},
+    ghost: {background:"#161616",color:"#888",border:"1.5px solid #222"},
+    danger: {background:"#FF3D0010",color:"#FF3D00",border:"1.5px solid #FF3D0030"},
+    success: {background:"#059669",color:"white",border:"none"},
+    gradient: {background:"linear-gradient(135deg,#667eea,#764ba2)",color:"white",border:"none"},
+  };
+  return (
+    <button onClick={onClick} disabled={disabled} style={{
+      display:"flex",alignItems:"center",justifyContent:"center",gap:6,
+      padding:"9px 18px",borderRadius:10,fontFamily:"inherit",fontSize:12.5,fontWeight:600,
+      cursor:disabled?"not-allowed":"pointer",opacity:disabled?0.5:1,
+      transition:"all 0.15s",whiteSpace:"nowrap",
+      ...styles[variant],...style,
+    }}
+      onMouseEnter={e=>{ if(!disabled && variant==="primary") e.currentTarget.style.background="#0044DD"; }}
+      onMouseLeave={e=>{ if(variant==="primary") e.currentTarget.style.background="#0055FF"; }}
+      {...p}
+    >{children}</button>
+  );
+};
+
+// ─── MAIN ─────────────────────────────────────────────────────────────────────
+function CotizAI() {
+  const [tab, setTab] = useState("empresa");
+  const [loading, setLoading] = useState(false);
+  const [loadMsg, setLoadMsg] = useState("");
+  const [pdfUri, setPdfUri] = useState(null);       // blob for download
+  const [previewData, setPreviewData] = useState(null);
+  const [toast, setToast] = useState(null);
+  const [aiPrompt, setAiPrompt] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [showMobileAI, setShowMobileAI] = useState(false);
+  const logoRef = useRef();
+
+  // Form state
+  const [emp, setEmp] = useState({ nombre:"", rut:"", tel:"", email:"", dir:"", web:"", logo:null });
+  const [cli, setCli] = useState({ nombre:"", rut:"", email:"", tel:"", atencion:"" });
+  const [items, setItems] = useState([
+    { id:uid(), desc:"Diseño de sitio web", tipo:"unico", precio:350000 },
+    { id:uid(), desc:"Gestión de redes sociales", tipo:"mensual", precio:120000 },
+  ]);
+  const [cfg, setCfg] = useState({
+    num:"001", validez:"30",
+    notas:"Forma de pago: 50% al inicio, 50% al término del proyecto.",
+    iva:false, ivaInc:false, disclaimer:true,
+    disc:"Al confirmar este presupuesto mediante abono o cualquier forma de pago, el cliente acepta los términos y condiciones de nuestra empresa.",
+    colorP:"#0055FF", colorA:"#FF3D00",
+  });
+
+  const showToast = (msg, type="ok") => { setToast({msg,type}); setTimeout(()=>setToast(null),3200); };
+
+  // Items
+  const addItem = tipo => setItems(p => [...p, {id:uid(),desc:"",tipo,precio:0}]);
+  const rmItem = id => setItems(p => p.filter(i => i.id!==id));
+  const updItem = (id,k,v) => setItems(p => p.map(i => i.id===id?{...i,[k]:v}:i));
+
+  // Totals
+  const unicos = items.filter(i=>i.tipo==="unico");
+  const mensuales = items.filter(i=>i.tipo==="mensual");
+  const sumU = unicos.reduce((a,b)=>a+(parseFloat(b.precio)||0),0);
+  const sumM = mensuales.reduce((a,b)=>a+(parseFloat(b.precio)||0),0);
+  const netoU = cfg.ivaInc ? Math.round(sumU/1.19) : sumU;
+  const netoM = cfg.ivaInc ? Math.round(sumM/1.19) : sumM;
+  const ivaU = Math.round(netoU*0.19);
+  const ivaM = Math.round(netoM*0.19);
+  const totalU = cfg.iva ? netoU+ivaU : sumU;
+  const totalM = cfg.iva ? netoM+ivaM : sumM;
+
+  // Logo
+  const handleLogo = e => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => setEmp(p=>({...p,logo:ev.target.result}));
+    r.readAsDataURL(f);
+  };
+
+  // AI
+  const suggestIA = async () => {
+    if(!aiPrompt.trim()) { showToast("Describe los servicios primero","warn"); return; }
+    setAiLoading(true);
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+          model:"claude-sonnet-4-20250514", max_tokens:800,
+          messages:[{role:"user",content:`Genera ítems de cotización para un emprendedor chileno sobre: "${aiPrompt}". Responde SOLO con JSON array sin markdown: [{"desc":"...","tipo":"unico"|"mensual","precio":number}]. Precios en CLP realistas (sin puntos). Máximo 5 ítems.`}]
+        })
+      });
+      const d = await res.json();
+      const txt = d.content[0].text.replace(/```json|```/g,"").trim();
+      const parsed = JSON.parse(txt);
+      setItems(p => [...p, ...parsed.map(i=>({id:uid(),...i}))]);
+      setAiPrompt("");
+      showToast(`✓ ${parsed.length} ítems generados`);
+      setTab("items");
+    } catch(e) { showToast("Error con IA. Intenta de nuevo.","err"); }
+    finally { setAiLoading(false); }
+  };
+
+  // PDF
+  const genPDF = async () => {
+    if(!emp.nombre) { showToast("Falta nombre de empresa","err"); setTab("empresa"); return; }
+    if(!cli.nombre) { showToast("Falta nombre del cliente","err"); setTab("cliente"); return; }
+    if(!items.length) { showToast("Agrega al menos un servicio","err"); setTab("items"); return; }
+
+    setLoading(true); setLoadMsg("Construyendo PDF...");
+    try {
+      await new Promise(r=>setTimeout(r,200));
+      const {jsPDF} = window.jspdf;
+      const doc = new jsPDF({unit:"mm",format:"a4"});
+      const W=210, H=297, M=15;
+      const cp = hexToRgb(cfg.colorP);
+      const ca = hexToRgb(cfg.colorA);
+
+      // Header bg
+      doc.setFillColor(cp.r,cp.g,cp.b);
+      doc.rect(0,0,W,50,"F");
+      // Accent strip right
+      doc.setFillColor(ca.r,ca.g,ca.b);
+      doc.rect(W-22,0,22,50,"F");
+
+      // Logo / Empresa
+      if(emp.logo) {
+        try { doc.addImage(emp.logo,"PNG",M,8,0,34); }
+        catch(e) {
+          doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(18);
+          doc.text(emp.nombre,M,28);
+        }
+      } else {
+        doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(19);
+        doc.text(emp.nombre,M,26);
+        if(emp.web) { doc.setFont("helvetica","normal"); doc.setFontSize(8); doc.setTextColor(255,255,255); doc.text(emp.web,M,33); }
+      }
+
+      // Title
+      doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(22);
+      doc.text("COTIZACIÓN",W-M-22,22,{align:"right"});
+      doc.setFont("helvetica","normal"); doc.setFontSize(8.5);
+      doc.text(`N° ${cfg.num}`,W-M-22,30,{align:"right"});
+      doc.text(`Fecha: ${today()}`,W-M-22,36,{align:"right"});
+      doc.text(`Vigencia: ${cfg.validez} días`,W-M-22,42,{align:"right"});
+
+      let y = 62;
+      const colW = (W-M*2-8)/2;
+
+      // Info blocks
+      const drawBlock = (title, lines, x) => {
+        doc.setFont("helvetica","bold"); doc.setFontSize(7.5);
+        doc.setTextColor(cp.r,cp.g,cp.b);
+        doc.text(title,x,y);
+        let ly = y+5;
+        lines.filter(Boolean).forEach(line => {
+          const s = line.size||9; const bold = line.bold||false;
+          doc.setFont("helvetica",bold?"bold":"normal"); doc.setFontSize(s);
+          // Always fully opaque: bold = near-black, normal = dark gray
+          doc.setTextColor(bold?10:55, bold?10:55, bold?10:55);
+          const wrapped = doc.splitTextToSize(line.t,colW);
+          doc.text(wrapped,x,ly);
+          ly += wrapped.length*(s*0.45+1.4);
+        });
+        return ly;
+      };
+
+      const eLines = [
+        {t:emp.nombre,bold:true,size:10.5},
+        emp.rut&&{t:`RUT: ${emp.rut}`},
+        emp.tel&&{t:emp.tel},
+        emp.email&&{t:emp.email},
+        emp.dir&&{t:emp.dir},
+      ].filter(Boolean);
+      const cLines = [
+        {t:cli.nombre,bold:true,size:10.5},
+        cli.rut&&{t:`RUT: ${cli.rut}`},
+        cli.tel&&{t:cli.tel},
+        cli.email&&{t:cli.email},
+        cli.atencion&&{t:`Attn: ${cli.atencion}`},
+      ].filter(Boolean);
+
+      const endE = drawBlock("PROVEEDOR",eLines,M);
+      const endC = drawBlock("CLIENTE",cLines,M+colW+8);
+      y = Math.max(endE,endC)+10;
+
+      // Separator
+      doc.setDrawColor(cp.r,cp.g,cp.b); doc.setLineWidth(0.7);
+      doc.line(M,y,W-M,y); y+=7;
+
+      // Table header
+      doc.setFillColor(cp.r,cp.g,cp.b);
+      doc.roundedRect(M,y,W-M*2,8,1,1,"F");
+      doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(7.5);
+      doc.text("DESCRIPCIÓN",M+4,y+5);
+      doc.text("TIPO",M+105,y+5);
+      doc.text("PRECIO",W-M-3,y+5,{align:"right"});
+      y+=11;
+
+      items.forEach((item,i)=>{
+        const rH=9;
+        if(i%2===0){ doc.setFillColor(248,248,252); doc.rect(M,y-2.5,W-M*2,rH,"F"); }
+        // Reset to solid black before every text render
+        doc.setFont("helvetica","normal"); doc.setFontSize(9.5); doc.setTextColor(15,15,15);
+        const dw = doc.splitTextToSize(item.desc||"Servicio",86);
+        doc.text(dw,M+4,y+3.5);
+        // pill
+        const men = item.tipo==="mensual";
+        const pc = men?ca:cp;
+        doc.setFillColor(pc.r,pc.g,pc.b);
+        doc.roundedRect(M+103,y+0.5,24,6,1.5,1.5,"F");
+        doc.setTextColor(255,255,255); doc.setFont("helvetica","bold"); doc.setFontSize(6.5);
+        doc.text(men?"MENSUAL":"ÚNICO",M+115,y+4.8,{align:"center"});
+        // price — force black
+        doc.setFont("helvetica","normal"); doc.setFontSize(9.5); doc.setTextColor(15,15,15);
+        doc.text(fmt(parseFloat(item.precio)||0)+(men?"/mes":""),W-M-3,y+4,{align:"right"});
+        y+=rH;
+      });
+
+      y+=5;
+      doc.setDrawColor(210,210,215); doc.setLineWidth(0.3);
+      doc.line(M,y,W-M,y); y+=7;
+
+      // Totals right-aligned — all text forced to solid colors
+      const tLine = (label,val,big=false,hex=null)=>{
+        doc.setFont("helvetica",big?"bold":"normal"); doc.setFontSize(big?11.5:9);
+        if(big && hex){
+          const hc=hexToRgb(hex);
+          doc.setTextColor(hc.r,hc.g,hc.b);
+        } else {
+          // Subtotal lines: dark gray, fully opaque
+          doc.setTextColor(60,60,60);
+        }
+        doc.text(label,M+100,y);
+        // Value always near-black
+        doc.setTextColor(15,15,15);
+        doc.text(val,W-M-3,y,{align:"right"});
+        y+=big?8.5:6;
+      };
+
+      if(unicos.length){
+        doc.setFont("helvetica","bold"); doc.setFontSize(7.5); doc.setTextColor(cp.r,cp.g,cp.b);
+        doc.text("▸  PAGOS ÚNICOS",M+100,y); y+=5.5;
+        if(cfg.iva){ tLine("Subtotal neto",fmt(netoU)); tLine("IVA 19%",fmt(ivaU)); }
+        tLine("TOTAL ÚNICO",fmt(totalU),true,cfg.colorP);
+        y+=3;
+      }
+      if(mensuales.length){
+        doc.setFont("helvetica","bold"); doc.setFontSize(7.5); doc.setTextColor(ca.r,ca.g,ca.b);
+        doc.text("▸  PAGOS MENSUALES",M+100,y); y+=5.5;
+        if(cfg.iva){ tLine("Subtotal neto",fmt(netoM)); tLine("IVA 19%",fmt(ivaM)); }
+        tLine("TOTAL MENSUAL",fmt(totalM)+"/mes",true,cfg.colorA);
+      }
+
+      y+=8;
+
+      // Notes
+      if(cfg.notas.trim()){
+        const nl = doc.splitTextToSize(cfg.notas,W-M*2-10);
+        const nh = nl.length*4.8+14;
+        doc.setFillColor(248,248,250); doc.roundedRect(M,y,W-M*2,nh,2,2,"F");
+        doc.setFont("helvetica","bold"); doc.setFontSize(7.5); doc.setTextColor(cp.r,cp.g,cp.b);
+        doc.text("CONDICIONES",M+5,y+5.5);
+        doc.setFont("helvetica","normal"); doc.setFontSize(9); doc.setTextColor(30,30,30);
+        doc.text(nl,M+5,y+10.5);
+        y+=nh+6;
+      }
+
+      // Disclaimer
+      if(cfg.disclaimer&&cfg.disc.trim()){
+        const dl = doc.splitTextToSize(cfg.disc,W-M*2-10);
+        const dh = dl.length*4.8+14;
+        doc.setFillColor(254,252,232); doc.roundedRect(M,y,W-M*2,dh,2,2,"F");
+        doc.setDrawColor(202,138,4); doc.setLineWidth(0.4);
+        doc.roundedRect(M,y,W-M*2,dh,2,2,"S");
+        doc.setFont("helvetica","bold"); doc.setFontSize(7.5); doc.setTextColor(100,60,0);
+        doc.text("AVISO LEGAL",M+5,y+5.5);
+        doc.setFont("helvetica","normal"); doc.setFontSize(8.5); doc.setTextColor(60,40,0);
+        doc.text(dl,M+5,y+10.5);
+        y+=dh+6;
+      }
+
+      // Footer
+      doc.setFillColor(cp.r,cp.g,cp.b); doc.rect(0,H-14,W,14,"F");
+      doc.setFillColor(ca.r,ca.g,ca.b); doc.rect(W-18,H-14,18,14,"F");
+      doc.setTextColor(255,255,255); doc.setFont("helvetica","normal"); doc.setFontSize(7.5);
+      const fl = [emp.email,emp.tel,emp.web].filter(Boolean).join("  ·  ");
+      doc.text(fl||emp.nombre,M,H-6);
+      doc.text(`Cotización N° ${cfg.num}  ·  ${today()}`,W-M-18,H-6,{align:"right"});
+
+      const uri = doc.output("datauristring");
+      setPdfUri(uri);
+      // Capture snapshot for HTML preview (iframe is unreliable cross-browser)
+      setPreviewData({
+        emp:{...emp}, cli:{...cli},
+        items:[...items],
+        cfg:{...cfg},
+        unicos:[...unicos], mensuales:[...mensuales],
+        totalU, totalM, netoU, netoM, ivaU, ivaM,
+        fecha: today(),
+      });
+      showToast("✓ PDF generado correctamente");
+      setTab("preview");
+    } catch(e) {
+      console.error(e);
+      showToast("Error al generar PDF","err");
+    } finally { setLoading(false); }
+  };
+
+  const downloadPDF = () => {
+    if(!pdfUri) return;
+    const a = document.createElement("a");
+    a.href = pdfUri;
+    a.download = `${(emp.nombre||"cotizacion").replace(/\s+/g,"-")}-N${cfg.num}.pdf`;
+    a.click();
+  };
+
+  // Tab config
+  const TABS = [
+    {id:"empresa",label:"Empresa",icon:"building",done:!!emp.nombre},
+    {id:"cliente",label:"Cliente",icon:"user",done:!!cli.nombre},
+    {id:"items",label:"Servicios",icon:"list",done:items.length>0},
+    {id:"config",label:"Configurar",icon:"settings",done:true},
+    {id:"preview",label:"Vista Previa",icon:"eye",done:!!pdfUri},
+  ];
+
+  const S = { // inline style helpers
+    grid2: {display:"grid",gridTemplateColumns:"1fr 1fr",gap:13},
+  };
+
+  return (
+    <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"#080808"}}>
+
+      {/* ── TOP BAR ── */}
+      <header style={{height:52,background:"#060606",borderBottom:"1px solid #161616",display:"flex",alignItems:"center",padding:"0 20px",gap:14,flexShrink:0,zIndex:10}}>
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <div style={{width:28,height:28,background:"#0055FF",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <Ico n="doc" s={14} c="white"/>
+          </div>
+          <span style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:17,letterSpacing:"-0.3px"}}>
+            <span style={{color:"#0055FF"}}>Cotiz</span>AI
+          </span>
+        </div>
+        <div style={{width:1,height:18,background:"#1a1a1a"}}/>
+        <span className="desktop-subtitle" style={{fontSize:11,color:"#333",fontWeight:500}}>Cotizaciones Profesionales</span>
+
+        {/* AI bar — solo desktop */}
+        <div className="desktop-ai-bar" style={{flex:1,display:"flex",alignItems:"center",gap:8,marginLeft:12}}>
+          <input
+            value={aiPrompt} onChange={e=>setAiPrompt(e.target.value)}
+            placeholder="✦ Describe los servicios y genera ítems con IA..."
+            onKeyDown={e=>e.key==="Enter"&&suggestIA()}
+            style={{flex:1,background:"#111",border:"1.5px solid #1d1d1d",borderRadius:8,padding:"7px 12px",color:"#888",fontSize:12,fontFamily:"inherit",outline:"none",maxWidth:400}}
+            onFocus={e=>{e.target.style.borderColor="#0055FF33";e.target.style.color="#e8e4dc";}}
+            onBlur={e=>{e.target.style.borderColor="#1d1d1d";e.target.style.color="#888";}}
+          />
+          <Btn variant="gradient" onClick={suggestIA} disabled={aiLoading} style={{padding:"7px 14px",fontSize:11.5}}>
+            <Ico n="sparkle" s={12}/>{aiLoading?"...":"Generar"}
+          </Btn>
+        </div>
+
+        <div style={{marginLeft:"auto",display:"flex",gap:8}}>
+          {/* Botón IA — solo móvil */}
+          <button className="mobile-ai-btn" onClick={()=>setShowMobileAI(v=>!v)} style={{
+            display:"none",alignItems:"center",gap:5,padding:"7px 12px",
+            background:"linear-gradient(135deg,#667eea,#764ba2)",color:"white",
+            border:"none",borderRadius:8,fontFamily:"inherit",fontSize:11.5,fontWeight:600,cursor:"pointer"
+          }}>
+            <Ico n="sparkle" s={12}/> IA
+          </button>
+          {pdfUri && <Btn variant="success" onClick={downloadPDF} style={{padding:"7px 16px",fontSize:12}}><Ico n="download" s={13}/> Descargar</Btn>}
+          <Btn variant="primary" onClick={genPDF} disabled={loading} style={{padding:"7px 16px",fontSize:12}}>
+            {loading ? <span style={{animation:"pulse 1s infinite"}}>{loadMsg}</span> : <><Ico n="eye" s={13}/> PDF</>}
+          </Btn>
+        </div>
+      </header>
+
+      {/* Panel IA móvil — desplegable */}
+      {showMobileAI && (
+        <div style={{background:"#0c0c0c",borderBottom:"1px solid #1a1a1a",padding:"12px 16px",display:"flex",gap:8,flexShrink:0}}>
+          <input value={aiPrompt} onChange={e=>setAiPrompt(e.target.value)}
+            placeholder="ej: diseño web, soporte mensual..."
+            onKeyDown={e=>e.key==="Enter"&&suggestIA()}
+            style={{flex:1,background:"#151515",border:"1.5px solid #222",borderRadius:8,padding:"10px 12px",color:"#e8e4dc",fontSize:14,fontFamily:"inherit",outline:"none"}}/>
+          <Btn variant="gradient" onClick={suggestIA} disabled={aiLoading} style={{padding:"10px 16px",flexShrink:0}}>
+            {aiLoading?"...":"Generar"}
+          </Btn>
+        </div>
+      )}
+
+      {/* ── BODY ── */}
+      <div style={{flex:1,display:"flex",overflow:"hidden"}}>
+
+        {/* SIDEBAR — oculto en móvil vía CSS, visible en desktop */}
+        <nav className="desktop-sidebar" style={{width:190,background:"#060606",borderRight:"1px solid #161616",display:"flex",flexDirection:"column",padding:"16px 0",flexShrink:0}}>
+          {TABS.map(t=>{
+            const act = tab===t.id;
+            return (
+              <button key={t.id} onClick={()=>setTab(t.id)} style={{
+                display:"flex",alignItems:"center",gap:9,padding:"9px 14px",margin:"2px 8px",
+                background:act?"#0055FF14":"transparent",
+                border:act?"1px solid #0055FF28":"1px solid transparent",
+                borderRadius:9,cursor:"pointer",color:act?"#4488FF":"#444",
+                fontFamily:"inherit",fontSize:12,fontWeight:act?600:400,textAlign:"left",
+                transition:"all 0.15s",
+              }}
+                onMouseEnter={e=>{ if(!act){e.currentTarget.style.background="#111";e.currentTarget.style.color="#777";}}}
+                onMouseLeave={e=>{ if(!act){e.currentTarget.style.background="transparent";e.currentTarget.style.color="#444";}}}
+              >
+                <Ico n={t.icon} s={13}/>
+                <span style={{flex:1}}>{t.label}</span>
+                {t.done && t.id!=="preview" && (
+                  <div style={{width:15,height:15,borderRadius:"50%",background:"#059669",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <Ico n="check" s={8} c="white"/>
+                  </div>
+                )}
+              </button>
+            );
+          })}
+
+          {/* Mini totals */}
+          <div style={{marginTop:"auto",padding:"14px 14px 4px",borderTop:"1px solid #161616"}}>
+            {!items.length && <div style={{fontSize:11,color:"#282828",textAlign:"center"}}>Sin servicios</div>}
+            {unicos.length>0 && (
+              <div style={{marginBottom:10}}>
+                <div style={{fontSize:9,color:"#333",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:3}}>Total único</div>
+                <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:16,color:"#0055FF"}}>{fmt(totalU)}</div>
+              </div>
+            )}
+            {mensuales.length>0 && (
+              <div>
+                <div style={{fontSize:9,color:"#333",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:3}}>Total mensual</div>
+                <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:16,color:"#FF3D00"}}>{fmt(totalM)}<span style={{fontSize:10,fontWeight:400}}>/mes</span></div>
+              </div>
+            )}
+          </div>
+        </nav>
+
+        {/* MAIN */}
+        <main className="main-scroll" style={{flex:1,overflow:"auto",padding:20}}>
+
+          {/* ── EMPRESA ── */}
+          {tab==="empresa" && (
+            <div style={{animation:"fadeUp 0.25s ease",maxWidth:620}}>
+              <Card icon="building" title="Tu Empresa">
+                <div style={{...S.grid2,marginBottom:13}}>
+                  <Inp label="Nombre empresa *" value={emp.nombre} onChange={e=>setEmp(p=>({...p,nombre:e.target.value}))} placeholder="Mi Empresa SpA" style={{gridColumn:"1/-1"}}/>
+                </div>
+                <div style={S.grid2}>
+                  <Inp label="RUT empresa" value={emp.rut} onChange={e=>setEmp(p=>({...p,rut:e.target.value}))} placeholder="76.123.456-7"/>
+                  <Inp label="Teléfono" value={emp.tel} onChange={e=>setEmp(p=>({...p,tel:e.target.value}))} placeholder="+56 9 1234 5678"/>
+                  <Inp label="Email" value={emp.email} onChange={e=>setEmp(p=>({...p,email:e.target.value}))} placeholder="contacto@empresa.cl" type="email"/>
+                  <Inp label="Sitio web" value={emp.web} onChange={e=>setEmp(p=>({...p,web:e.target.value}))} placeholder="www.miempresa.cl"/>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <Inp label="Dirección" value={emp.dir} onChange={e=>setEmp(p=>({...p,dir:e.target.value}))} placeholder="Av. Principal 123, Santiago"/>
+                  </div>
+                </div>
+              </Card>
+
+              <Card icon="palette" title="Logo & Colores de marca">
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20}}>
+                  {/* Logo upload */}
+                  <div>
+                    <div style={{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.7px",color:"#3d3d3d",marginBottom:8}}>Logo empresa</div>
+                    <div onClick={()=>logoRef.current.click()} style={{border:"2px dashed #222",borderRadius:12,padding:24,textAlign:"center",cursor:"pointer",background:"#0d0d0d",transition:"border-color 0.15s, background 0.15s",minHeight:100,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}
+                      onMouseEnter={e=>{e.currentTarget.style.borderColor="#0055FF";e.currentTarget.style.background="#0055FF06";}}
+                      onMouseLeave={e=>{e.currentTarget.style.borderColor="#222";e.currentTarget.style.background="#0d0d0d";}}>
+                      <input ref={logoRef} type="file" accept="image/*" onChange={handleLogo} style={{display:"none"}}/>
+                      {emp.logo
+                        ? <img src={emp.logo} style={{maxHeight:64,maxWidth:"100%",borderRadius:6,objectFit:"contain"}}/>
+                        : <>
+                            <div style={{fontSize:26,marginBottom:6,opacity:0.4}}>📁</div>
+                            <div style={{fontSize:11,color:"#444",lineHeight:1.5}}>Clic para subir logo</div>
+                            <div style={{fontSize:10,color:"#2d2d2d",marginTop:2}}>PNG · JPG · SVG</div>
+                          </>
+                      }
+                    </div>
+                    {emp.logo && (
+                      <button onClick={()=>setEmp(p=>({...p,logo:null}))} style={{marginTop:8,width:"100%",padding:"6px",background:"transparent",border:"1px solid #2a2a2a",borderRadius:8,color:"#555",fontSize:11,cursor:"pointer",fontFamily:"inherit"}}>
+                        × Quitar logo
+                      </button>
+                    )}
+                  </div>
+                  {/* Color pickers + palettes */}
+                  <div>
+                    <div style={{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:"0.7px",color:"#3d3d3d",marginBottom:12}}>Colores del PDF</div>
+
+                    {/* Palette grid */}
+                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,marginBottom:14}}>
+                      {PALETTES.map((p,i)=>{
+                        const sel = cfg.colorP===p.primary && cfg.colorA===p.accent;
+                        return (
+                          <button key={i} onClick={()=>setCfg(prev=>({...prev,colorP:p.primary,colorA:p.accent}))} style={{
+                            display:"flex",alignItems:"center",gap:8,padding:"7px 10px",
+                            background:sel?"#0d1020":"#111",
+                            border:sel?"1.5px solid #0055FF60":"1.5px solid #1d1d1d",
+                            borderRadius:8,cursor:"pointer",fontFamily:"inherit",fontSize:10.5,
+                            color:sel?"#6699FF":"#555",transition:"all 0.15s",textAlign:"left",
+                          }}
+                            onMouseEnter={e=>{if(!sel){e.currentTarget.style.borderColor="#333";e.currentTarget.style.color="#888";}}}
+                            onMouseLeave={e=>{if(!sel){e.currentTarget.style.borderColor="#1d1d1d";e.currentTarget.style.color="#555";}}}
+                          >
+                            <div style={{display:"flex",gap:0,borderRadius:4,overflow:"hidden",flexShrink:0,border:"1px solid rgba(255,255,255,0.1)"}}>
+                              <div style={{width:16,height:16,background:p.primary}}/>
+                              <div style={{width:16,height:16,background:p.accent}}/>
+                            </div>
+                            <span style={{lineHeight:1.2}}>{p.name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Custom pickers */}
+                    <div style={{display:"flex",gap:10,alignItems:"center",padding:"10px",background:"#0d0d0d",borderRadius:10,border:"1px solid #1d1d1d"}}>
+                      <div style={{display:"flex",alignItems:"center",gap:8,flex:1}}>
+                        <input type="color" value={cfg.colorP} onChange={e=>setCfg(p=>({...p,colorP:e.target.value}))} style={{width:36,height:32,border:"none",borderRadius:6,background:"transparent",cursor:"pointer",padding:0,flexShrink:0}}/>
+                        <div style={{fontSize:10,color:"#444"}}>Principal</div>
+                      </div>
+                      <div style={{width:1,height:24,background:"#222"}}/>
+                      <div style={{display:"flex",alignItems:"center",gap:8,flex:1}}>
+                        <input type="color" value={cfg.colorA} onChange={e=>setCfg(p=>({...p,colorA:e.target.value}))} style={{width:36,height:32,border:"none",borderRadius:6,background:"transparent",cursor:"pointer",padding:0,flexShrink:0}}/>
+                        <div style={{fontSize:10,color:"#444"}}>Acento</div>
+                      </div>
+                      {/* Live swatch */}
+                      <div style={{display:"flex",borderRadius:6,overflow:"hidden",border:"1px solid #2a2a2a",flexShrink:0}}>
+                        <div style={{width:20,height:32,background:cfg.colorP}}/>
+                        <div style={{width:20,height:32,background:cfg.colorA}}/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+              <div style={{display:"flex",justifyContent:"flex-end"}}>
+                <Btn onClick={()=>setTab("cliente")}><Ico n="arrow" s={13}/> Siguiente</Btn>
+              </div>
+            </div>
+          )}
+
+          {/* ── CLIENTE ── */}
+          {tab==="cliente" && (
+            <div style={{animation:"fadeUp 0.25s ease",maxWidth:620}}>
+              <Card icon="user" title="Datos del Cliente" badge="RUT opcional">
+                <div style={S.grid2}>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <Inp label="Nombre / Empresa cliente *" value={cli.nombre} onChange={e=>setCli(p=>({...p,nombre:e.target.value}))} placeholder="Empresa Cliente Ltda."/>
+                  </div>
+                  <Inp label="RUT cliente (opcional)" value={cli.rut} onChange={e=>setCli(p=>({...p,rut:e.target.value}))} placeholder="Sin RUT está OK"/>
+                  <Inp label="Email" value={cli.email} onChange={e=>setCli(p=>({...p,email:e.target.value}))} placeholder="cliente@empresa.cl" type="email"/>
+                  <Inp label="Teléfono" value={cli.tel} onChange={e=>setCli(p=>({...p,tel:e.target.value}))} placeholder="+56 9 8765 4321"/>
+                  <div style={{gridColumn:"1/-1"}}>
+                    <Inp label="Atención a" value={cli.atencion} onChange={e=>setCli(p=>({...p,atencion:e.target.value}))} placeholder="Sr(a). Juan Pérez — Gerente General"/>
+                  </div>
+                </div>
+              </Card>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <Btn variant="ghost" onClick={()=>setTab("empresa")}>← Atrás</Btn>
+                <Btn onClick={()=>setTab("items")}><Ico n="arrow" s={13}/> Siguiente</Btn>
+              </div>
+            </div>
+          )}
+
+          {/* ── ITEMS ── */}
+          {tab==="items" && (
+            <div style={{animation:"fadeUp 0.25s ease",maxWidth:740}}>
+              <Card icon="list" title="Servicios / Ítems">
+                {/* Table header */}
+                <div style={{display:"grid",gridTemplateColumns:"1fr 110px 130px 36px",gap:8,padding:"0 0 8px",borderBottom:"1px solid #181818",marginBottom:10}}>
+                  {["Descripción","Tipo","Precio CLP",""].map((h,i)=>(
+                    <div key={i} style={{fontSize:9,textTransform:"uppercase",letterSpacing:"0.5px",color:"#333",fontWeight:600}}>{h}</div>
+                  ))}
+                </div>
+
+                {items.map(item=>(
+                  <div key={item.id} style={{display:"grid",gridTemplateColumns:"1fr 110px 130px 36px",gap:8,marginBottom:8,animation:"slideIn 0.2s ease",alignItems:"start"}}>
+                    <Inp value={item.desc} onChange={e=>updItem(item.id,"desc",e.target.value)} placeholder="Descripción del servicio"/>
+                    <Sel value={item.tipo} onChange={e=>updItem(item.id,"tipo",e.target.value)}>
+                      <option value="unico">Único</option>
+                      <option value="mensual">Mensual</option>
+                    </Sel>
+                    <Inp type="number" value={item.precio} onChange={e=>updItem(item.id,"precio",e.target.value)} placeholder="0" min="0"/>
+                    <button onClick={()=>rmItem(item.id)} style={{width:36,height:36,background:"#1a1010",border:"1px solid #2a1a1a",borderRadius:9,color:"#FF3D00",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",marginTop:25,flexShrink:0}}>
+                      <Ico n="trash" s={12}/>
+                    </button>
+                  </div>
+                ))}
+
+                <div style={{display:"flex",gap:8,marginTop:14,flexWrap:"wrap"}}>
+                  <button onClick={()=>addItem("unico")} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 13px",background:"#0055FF0d",border:"1.5px dashed #0055FF30",borderRadius:8,color:"#4488FF",cursor:"pointer",fontFamily:"inherit",fontSize:11.5,transition:"all 0.15s"}}
+                    onMouseEnter={e=>{e.currentTarget.style.background="#0055FF18";}}
+                    onMouseLeave={e=>{e.currentTarget.style.background="#0055FF0d";}}>
+                    <Ico n="plus" s={11}/> + Pago único
+                  </button>
+                  <button onClick={()=>addItem("mensual")} style={{display:"flex",alignItems:"center",gap:5,padding:"7px 13px",background:"#FF3D000d",border:"1.5px dashed #FF3D0030",borderRadius:8,color:"#FF7755",cursor:"pointer",fontFamily:"inherit",fontSize:11.5,transition:"all 0.15s"}}
+                    onMouseEnter={e=>{e.currentTarget.style.background="#FF3D0018";}}
+                    onMouseLeave={e=>{e.currentTarget.style.background="#FF3D000d";}}>
+                    <Ico n="plus" s={11}/> + Pago mensual
+                  </button>
+                </div>
+
+                {/* Live totals */}
+                {items.length>0 && (
+                  <div style={{marginTop:18,padding:14,background:"#080808",borderRadius:12,border:"1px solid #181818",display:"flex",gap:24,flexWrap:"wrap"}}>
+                    {unicos.length>0 && (
+                      <div>
+                        <div style={{fontSize:9,color:"#0055FF",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:5}}>Pago único</div>
+                        {cfg.iva && <>
+                          <div style={{display:"flex",gap:16,fontSize:11,color:"#444",marginBottom:2}}><span>Neto</span><span>{fmt(netoU)}</span></div>
+                          <div style={{display:"flex",gap:16,fontSize:11,color:"#444",marginBottom:4}}><span>IVA 19%</span><span>{fmt(ivaU)}</span></div>
+                        </>}
+                        <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:18,color:"#0055FF"}}>{fmt(totalU)}</div>
+                      </div>
+                    )}
+                    {mensuales.length>0 && (
+                      <div style={{borderLeft:unicos.length?"1px solid #1a1a1a":"none",paddingLeft:unicos.length?24:0}}>
+                        <div style={{fontSize:9,color:"#FF3D00",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:5}}>Pago mensual</div>
+                        {cfg.iva && <>
+                          <div style={{display:"flex",gap:16,fontSize:11,color:"#444",marginBottom:2}}><span>Neto</span><span>{fmt(netoM)}</span></div>
+                          <div style={{display:"flex",gap:16,fontSize:11,color:"#444",marginBottom:4}}><span>IVA 19%</span><span>{fmt(ivaM)}</span></div>
+                        </>}
+                        <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:18,color:"#FF3D00"}}>{fmt(totalM)}<span style={{fontSize:11,fontWeight:400}}>/mes</span></div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </Card>
+
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <Btn variant="ghost" onClick={()=>setTab("cliente")}>← Atrás</Btn>
+                <Btn onClick={()=>setTab("config")}><Ico n="arrow" s={13}/> Configurar</Btn>
+              </div>
+            </div>
+          )}
+
+          {/* ── CONFIG ── */}
+          {tab==="config" && (
+            <div style={{animation:"fadeUp 0.25s ease",maxWidth:620}}>
+              <Card icon="settings" title="Configuración">
+                <div style={{...S.grid2,marginBottom:18}}>
+                  <Sel label="N° cotización" value={cfg.num} onChange={e=>setCfg(p=>({...p,num:e.target.value}))}>
+                    {["001","002","003","004","005","010","020","050","100"].map(n=><option key={n} value={n}>{n}</option>)}
+                  </Sel>
+                  <Sel label="Válido por" value={cfg.validez} onChange={e=>setCfg(p=>({...p,validez:e.target.value}))}>
+                    <option value="7">7 días</option>
+                    <option value="15">15 días</option>
+                    <option value="30">30 días</option>
+                    <option value="45">45 días</option>
+                    <option value="60">60 días</option>
+                  </Sel>
+                </div>
+                <Toggle checked={cfg.iva} onChange={()=>setCfg(p=>({...p,iva:!p.iva}))} label="Incluir IVA (19%)" sub="Desglosa neto + IVA en el PDF"/>
+                <Toggle checked={cfg.ivaInc} onChange={()=>setCfg(p=>({...p,ivaInc:!p.ivaInc}))} label="Precios ya incluyen IVA" sub="Los precios ingresados tienen IVA incorporado"/>
+                <Toggle checked={cfg.disclaimer} onChange={()=>setCfg(p=>({...p,disclaimer:!p.disclaimer}))} label="Incluir aviso legal" sub="Cláusula de aceptación de T&C al pagar"/>
+              </Card>
+
+              <Card icon="doc" title="Notas y textos">
+                <div style={{display:"flex",flexDirection:"column",gap:13}}>
+                  <Txta label="Notas / condiciones de pago" value={cfg.notas} onChange={e=>setCfg(p=>({...p,notas:e.target.value}))} placeholder="Forma de pago: 50% al inicio..."/>
+                  {cfg.disclaimer && (
+                    <Txta label="Aviso legal" value={cfg.disc} onChange={e=>setCfg(p=>({...p,disc:e.target.value}))} style={{minHeight:65}}/>
+                  )}
+                </div>
+              </Card>
+
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <Btn variant="ghost" onClick={()=>setTab("items")}>← Atrás</Btn>
+                <Btn onClick={genPDF} disabled={loading} style={{padding:"10px 24px",fontSize:13}}>
+                  <Ico n="download" s={14}/> {loading?loadMsg:"Generar PDF"}
+                </Btn>
+              </div>
+            </div>
+          )}
+
+          {/* ── PREVIEW ── */}
+          {tab==="preview" && (
+            <div style={{animation:"fadeUp 0.25s ease"}}>
+              {previewData ? (
+                <>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
+                    <div>
+                      <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:20,letterSpacing:"-0.3px"}}>
+                        <span style={{color:"#059669"}}>✓</span> PDF listo
+                      </div>
+                      <div style={{fontSize:11,color:"#444",marginTop:3}}>Cotización N° {cfg.num} · {today()}</div>
+                    </div>
+                    <div style={{display:"flex",gap:8}}>
+                      <Btn variant="ghost" onClick={()=>setTab("items")}>Editar</Btn>
+                      <Btn variant="success" onClick={downloadPDF}><Ico n="download" s={13}/> Descargar PDF</Btn>
+                    </div>
+                  </div>
+                  <div style={{border:"1.5px solid #181818",borderRadius:14,overflow:"auto",background:"#1a1a1a",padding:24,maxHeight:"78vh"}}>
+                    <PDFPreview d={previewData}/>
+                  </div>
+                </>
+              ) : (
+                <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"60vh",gap:16,textAlign:"center"}}>
+                  <div style={{width:64,height:64,borderRadius:16,background:"#111",border:"1.5px solid #1f1f1f",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Ico n="doc" s={28} c="#2a2a2a"/>
+                  </div>
+                  <div>
+                    <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:18,marginBottom:6}}>Aún sin PDF</div>
+                    <div style={{fontSize:12,color:"#333"}}>Completa los datos y genera tu primera cotización</div>
+                  </div>
                   <Btn onClick={()=>setTab("empresa")}>Comenzar →</Btn>
                 </div>
               )}
@@ -1088,6 +2206,22 @@ function CotizAI() {
           )}
 
         </main>
+      </div>
+
+      {/* ── BOTTOM NAV — solo móvil vía CSS ── */}
+      <div className="bottom-nav">
+        {TABS.map(t=>{
+          const act = tab===t.id;
+          return (
+            <button key={t.id} onClick={()=>setTab(t.id)} className={act?"active":""}>
+              <div style={{position:"relative",display:"inline-flex"}}>
+                <Ico n={t.icon} s={20}/>
+                {t.done && t.id!=="preview" && <div className="bnav-dot"/>}
+              </div>
+              <span>{t.label}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* ── LOADING ── */}
@@ -1115,61 +2249,5 @@ function CotizAI() {
 
 ReactDOM.createRoot(document.getElementById("root")).render(<CotizAI/>);
 </script>
-
-<!-- ═══════════════════════════════════════════════
-     BANNER "INSTALAR APP" — aparece automáticamente
-════════════════════════════════════════════════ -->
-<div id="install-banner" class="hidden">
-  <div class="ib-icon">📲</div>
-  <div class="ib-text">
-    <div class="ib-title">Instalar CotizAI</div>
-    <div class="ib-sub">Úsala sin internet, como app real</div>
-  </div>
-  <button class="ib-btn" id="install-btn">Instalar</button>
-  <button class="ib-close" id="install-close">✕</button>
-</div>
-
-<script>
-// ── Lógica del banner de instalación PWA ──
-let deferredPrompt = null;
-const banner   = document.getElementById('install-banner');
-const installBtn = document.getElementById('install-btn');
-const closeBtn   = document.getElementById('install-close');
-
-// Chrome/Android dispara este evento cuando la app es instalable
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  // Mostrar banner después de 3 segundos
-  setTimeout(() => {
-    if(!localStorage.getItem('cotizai-pwa-dismissed')) {
-      banner.classList.remove('hidden');
-    }
-  }, 3000);
-});
-
-installBtn.addEventListener('click', async () => {
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if(outcome === 'accepted') {
-    banner.classList.add('hidden');
-    localStorage.setItem('cotizai-pwa-installed','1');
-  }
-  deferredPrompt = null;
-});
-
-closeBtn.addEventListener('click', () => {
-  banner.classList.add('hidden');
-  localStorage.setItem('cotizai-pwa-dismissed','1');
-});
-
-// Ocultar banner si ya está instalada
-window.addEventListener('appinstalled', () => {
-  banner.classList.add('hidden');
-  console.log('✅ CotizAI instalada como PWA');
-});
-</script>
-
 </body>
 </html>
