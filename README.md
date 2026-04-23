@@ -2,7 +2,7 @@
 
 Generador de cotizaciones profesionales en PDF — funciona como app instalable en Android e iOS.
 
-**Demo:** https://TU-USUARIO.github.io/cotizai-app
+**Demo:** https://ChristianSPP.github.io/cotizai-app
 
 ---
 
